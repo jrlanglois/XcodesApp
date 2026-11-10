@@ -2886,6 +2886,136 @@
         }
       }
     },
+    "After signing in, copy the full URL of the last page your browser opens and paste it below." : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بعد تسجيل الدخول، انسخ عنوان URL الكامل لآخر صفحة يفتحها المتصفح والصقه أدناه."
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Després d’iniciar la sessió, copia l’URL completa de l’última pàgina que obri el navegador i enganxa-la a sota."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kopiere nach der Anmeldung die vollständige URL der letzten Seite, die Dein Browser öffnet, und füge sie unten ein."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Αφού συνδεθείτε, αντιγράψτε ολόκληρη τη διεύθυνση URL της τελευταίας σελίδας που ανοίγει το πρόγραμμα περιήγησης και επικολλήστε την παρακάτω."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Después de iniciar sesión, copia la URL completa de la última página que abra tu navegador y pégala abajo."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kirjautumisen jälkeen kopioi selaimen viimeisenä avaaman sivun koko URL ja liitä se alle."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Après la connexion, copiez l’URL complète de la dernière page ouverte par votre navigateur et collez-la ci-dessous."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "साइन इन करने के बाद, आपका ब्राउज़र जो आख़िरी पेज खोलता है उसका पूरा URL कॉपी करें और नीचे चिपकाएँ।"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dopo l’accesso, copia l’URL completo dell’ultima pagina aperta dal browser e incollalo qui sotto."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サインイン後、ブラウザが最後に開いたページの完全なURLをコピーして、下にペーストしてください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "로그인한 후 브라우저가 마지막으로 연 페이지의 전체 URL을 복사하여 아래에 붙여넣으세요."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kopieer na het inloggen de volledige URL van de laatste pagina die je browser opent en plak deze hieronder."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Po zalogowaniu skopiuj pełny URL ostatniej strony otwartej przez przeglądarkę i wklej go poniżej."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Depois de entrar, copie o URL completo da última página aberta pelo navegador e cole-o abaixo."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "После входа скопируйте полный URL последней страницы, открытой в браузере, и вставьте его ниже."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Efter inloggningen kopierar du hela URL:en till den sista sidan som webbläsaren öppnar och klistrar in den nedan."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "หลังจากลงชื่อเข้าใช้ ให้คัดลอก URL แบบเต็มของหน้าสุดท้ายที่เบราว์เซอร์เปิด แล้ววางด้านล่าง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Giriş yaptıktan sonra tarayıcının açtığı son sayfanın tam URL’sini kopyala ve aşağıya yapıştır."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Після входу скопіюйте повну URL-адресу останньої сторінки, яку відкриває браузер, і вставте її нижче."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登录后，复制浏览器最后打开页面的完整 URL，然后粘贴到下方。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登入後，拷貝瀏覽器最後開啟頁面的完整 URL，然後貼到下方。"
+          }
+        }
+      }
+    },
     "Alert.CancelInstall.Message" : {
       "localizations" : {
         "ar" : {
@@ -34675,6 +34805,136 @@
         }
       }
     },
+    "Show URL" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إظهار عنوان URL"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostra l’URL"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URL anzeigen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Εμφάνιση διεύθυνσης URL"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar URL"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Näytä URL"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afficher l’URL"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URL दिखाएँ"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostra URL"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URLを表示"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URL 보기"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toon URL"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pokaż URL"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar URL"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Показать URL"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Visa URL"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "แสดง URL"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URL’yi göster"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Показати URL-адресу"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "显示 URL"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "顯示 URL"
+          }
+        }
+      }
+    },
     "ShowOpenInRosetta" : {
       "localizations" : {
         "ar" : {
@@ -37351,6 +37611,136 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "這個資料夾無法閱讀。"
+          }
+        }
+      }
+    },
+    "This URL is incomplete. Copy the full URL of the last page your browser opens." : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عنوان URL هذا غير مكتمل. انسخ عنوان URL الكامل لآخر صفحة يفتحها المتصفح."
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aquesta URL és incompleta. Copia l’URL completa de l’última pàgina que obri el navegador."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese URL ist unvollständig. Kopiere die vollständige URL der letzten Seite, die Dein Browser öffnet."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Αυτή η διεύθυνση URL είναι ελλιπής. Αντιγράψτε ολόκληρη τη διεύθυνση URL της τελευταίας σελίδας που ανοίγει το πρόγραμμα περιήγησης."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esta URL está incompleta. Copia la URL completa de la última página que abra tu navegador."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tämä URL on puutteellinen. Kopioi selaimen viimeisenä avaaman sivun koko URL."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cette URL est incomplète. Copiez l’URL complète de la dernière page ouverte par votre navigateur."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "यह URL अधूरा है। आपका ब्राउज़र जो आख़िरी पेज खोलता है उसका पूरा URL कॉपी करें।"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Questo URL è incompleto. Copia l’URL completo dell’ultima pagina aperta dal browser."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このURLは不完全です。ブラウザが最後に開いたページの完全なURLをコピーしてください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이 URL은 불완전합니다. 브라우저가 마지막으로 연 페이지의 전체 URL을 복사하세요."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deze URL is onvolledig. Kopieer de volledige URL van de laatste pagina die je browser opent."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ten URL jest niekompletny. Skopiuj pełny URL ostatniej strony otwartej przez przeglądarkę."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Este URL está incompleto. Copie o URL completo da última página aberta pelo navegador."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Этот URL неполный. Скопируйте полный URL последней страницы, открытой в браузере."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Den här URL:en är ofullständig. Kopiera hela URL:en till den sista sidan som webbläsaren öppnar."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URL นี้ไม่สมบูรณ์ ให้คัดลอก URL แบบเต็มของหน้าสุดท้ายที่เบราว์เซอร์เปิด"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu URL eksik. Tarayıcının açtığı son sayfanın tam URL’sini kopyala."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ця URL-адреса неповна. Скопіюйте повну URL-адресу останньої сторінки, яку відкриває браузер."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此 URL 不完整。请复制浏览器最后打开页面的完整 URL。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此 URL 不完整。請拷貝瀏覽器最後開啟頁面的完整 URL。"
           }
         }
       }
