@@ -55,12 +55,18 @@ struct SignInCredentialsView: View {
                         Text("Next")
                     }
                 )
-                .disabled(username.isEmpty)
+                .disabled(AppState.canonicalUsername(username).isEmpty)
                 .keyboardShortcut(.defaultAction)
             }
             .frame(height: 25)
         }
         .padding()
+        .onAppear {
+            if username.isEmpty, let savedUsername = appState.savedUsername {
+                username = savedUsername
+            }
+            focusedField = username.isEmpty ? .username : .password
+        }
     }
 }
 

@@ -355,9 +355,15 @@ class AppState: ObservableObject {
 
     func signIn(username: String, password: String?) {
         authError = nil
+        let username = Self.canonicalUsername(username)
         startAuthenticationTask {
-            _ = try await self.signInAsync(username: username.lowercased(), password: password)
+            _ = try await self.signInAsync(username: username, password: password)
         }
+    }
+
+    /// Autofill and pasting can bring surrounding whitespace into the Apple ID field.
+    static func canonicalUsername(_ username: String) -> String {
+        username.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
     }
 
     func signInAsync(username: String, password: String?) async throws -> AuthenticationState {
