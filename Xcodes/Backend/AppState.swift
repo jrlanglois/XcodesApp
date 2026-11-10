@@ -380,16 +380,39 @@ class AppState: ObservableObject {
     }
 
     func handleTwoFactorOption(_ option: TwoFactorOption, authOptions: AuthOptionsResponse, serviceKey: String, sessionID: String, scnt: String) {
-        let sessionData = AppleSessionData(serviceKey: serviceKey, sessionID: sessionID, scnt: scnt)
+        let secondFactorData = XcodesSheet.SecondFactorData(
+            option: option,
+            authOptions: authOptions,
+            sessionData: AppleSessionData(serviceKey: serviceKey, sessionID: sessionID, scnt: scnt)
+        )
 
-        if option == .securityKey, fido2DeviceIsPresent() && !fido2DeviceNeedsPin() {
-            createAndSubmitSecurityKeyAssertationWithPinCode(nil, sessionData: sessionData, authOptions: authOptions)
+        switch option {
+        case .securityKey:
+            presentSecurityKeyChallenge(secondFactorData)
+        case .codeSent, .smsSent, .smsPendingChoice:
+            // The code sheets size their entry fields from this length.
+            guard let codeLength = authOptions.securityCode?.length, codeLength > 0 else {
+                // An install waiting on this sign-in stops on .unauthenticated, and the sign-in form
+                // shows authError beneath its fields.
+                authenticationState = .unauthenticated
+                presentedSheet = .signIn
+                handleAuthenticationFlowFailure(SecondFactorChallengeError.missingSecurityCode)
+                return
+            }
+            self.presentedSheet = .twoFactor(secondFactorData)
+        }
+    }
+
+    /// Checks for an attached key before asking for its PIN, and offers a retry while none is.
+    func presentSecurityKeyChallenge(_ secondFactorData: XcodesSheet.SecondFactorData) {
+        guard fido2DeviceIsPresent() else {
+            presentedSheet = .securityKeyInsert(secondFactorData)
+            return
+        }
+        if fido2DeviceNeedsPin() {
+            presentedSheet = .twoFactor(secondFactorData)
         } else {
-            self.presentedSheet = .twoFactor(.init(
-                option: option,
-                authOptions: authOptions,
-                sessionData: sessionData
-            ))
+            createAndSubmitSecurityKeyAssertationWithPinCode(nil, sessionData: secondFactorData.sessionData, authOptions: secondFactorData.authOptions)
         }
     }
 
@@ -433,12 +456,12 @@ class AppState: ObservableObject {
     }
 
     func fido2DeviceIsPresent() -> Bool {
-        client.hasSecurityKeyDeviceAttached()
+        Current.securityKey.isAttached()
     }
 
     func fido2DeviceNeedsPin() -> Bool {
         do {
-            return try client.securityKeyDeviceNeedsPin()
+            return try Current.securityKey.needsPin()
         } catch {
             authError = error
             return true
@@ -459,7 +482,7 @@ class AppState: ObservableObject {
             // freed device once an assertion has finished.
             client.cancelSecurityKeyAssertationRequest()
             presentedSheet = nil
-        case .signIn, .twoFactor:
+        case .signIn, .twoFactor, .securityKeyInsert:
             presentedSheet = nil
         case .helperRecovery, nil:
             break
@@ -1178,5 +1201,16 @@ class AppState: ObservableObject {
         var title: String
         var message: String
         var id: String { title + message }
+    }
+}
+
+enum SecondFactorChallengeError: LocalizedError, Equatable {
+    case missingSecurityCode
+
+    var errorDescription: String? {
+        switch self {
+        case .missingSecurityCode:
+            return localizeString("SecondFactorChallengeIncomplete")
+        }
     }
 }

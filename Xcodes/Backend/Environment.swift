@@ -3,6 +3,7 @@ import Path
 import KeychainAccess
 import XcodesKit
 import XcodesLoginKit
+import XcodesLoginKitSecurityKey
 import os
 /**
  Lightweight dependency injection using global mutable state :P
@@ -15,6 +16,7 @@ public struct Environment: Sendable {
     public var shell = Shell()
     public var files = Files()
     public var network = Network()
+    public var securityKey = SecurityKey()
     public var keychain = Keychain()
     public var defaults = Defaults()
     public var date: @Sendable () -> Date = { Date() }
@@ -214,6 +216,11 @@ public struct Network: Sendable {
             loginClient.signout()
         }
     }
+}
+
+public struct SecurityKey: Sendable {
+    public var isAttached: @Sendable () -> Bool = { Current.network.loginClient.hasSecurityKeyDeviceAttached() }
+    public var needsPin: @Sendable () throws -> Bool = { try Current.network.loginClient.securityKeyDeviceNeedsPin() }
 }
 
 public struct Keychain: Sendable {

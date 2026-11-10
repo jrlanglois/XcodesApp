@@ -13,6 +13,7 @@ extension Xcodes.Environment {
             shell: .mock,
             files: .mock,
             network: .mock,
+            securityKey: .mock,
             keychain: .mock,
             defaults: .mock,
             date: Date.mock,
@@ -83,6 +84,15 @@ extension Network {
             },
             validateSessionAsync: { .unauthenticated },
             signout: { }
+        )
+    }
+}
+
+extension SecurityKey {
+    static var mock: SecurityKey {
+        SecurityKey(
+            isAttached: { false },
+            needsPin: { false }
         )
     }
 }

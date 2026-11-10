@@ -108,6 +108,9 @@ struct MainWindow: View {
             case .twoFactor(let secondFactorData):
                 secondFactorView(secondFactorData)
                     .environmentObject(appState)
+            case .securityKeyInsert(let secondFactorData):
+                SignInSecurityKeyInsertView(secondFactorData: secondFactorData)
+                    .environmentObject(appState)
             case .securityKeyTouchToConfirm:
                 SignInSecurityKeyTouchView()
                     .environmentObject(appState)
@@ -142,15 +145,21 @@ struct MainWindow: View {
     
     @ViewBuilder
     private func secondFactorView(_ secondFactorData: XcodesSheet.SecondFactorData) -> some View {
-        switch secondFactorData.option {
-        case .codeSent:
-            SignIn2FAView(authOptions: secondFactorData.authOptions, sessionData: secondFactorData.sessionData)
-        case .smsSent(let trustedPhoneNumber):
-            SignInSMSView(trustedPhoneNumber: trustedPhoneNumber, authOptions: secondFactorData.authOptions, sessionData: secondFactorData.sessionData)
-        case .smsPendingChoice:
-            SignInPhoneListView(authOptions: secondFactorData.authOptions, sessionData: secondFactorData.sessionData)
-        case .securityKey:
-            SignInSecurityKeyPinView(authOptions: secondFactorData.authOptions, sessionData: secondFactorData.sessionData)
+        let authOptions = secondFactorData.authOptions
+        let sessionData = secondFactorData.sessionData
+        switch (secondFactorData.option, authOptions.securityCode) {
+        case let (.codeSent, securityCode?):
+            SignIn2FAView(securityCode: securityCode, authOptions: authOptions, sessionData: sessionData)
+        case let (.smsSent(trustedPhoneNumber), securityCode?):
+            SignInSMSView(trustedPhoneNumber: trustedPhoneNumber, securityCode: securityCode, sessionData: sessionData)
+        case let (.smsPendingChoice, securityCode?):
+            SignInPhoneListView(securityCode: securityCode, authOptions: authOptions, sessionData: sessionData)
+        case (.securityKey, _):
+            SignInSecurityKeyPinView(authOptions: authOptions, sessionData: sessionData)
+        case (.codeSent, nil), (.smsSent, nil), (.smsPendingChoice, nil):
+            // Never presented: AppState.handleTwoFactorOption puts the sign-in form up with an error
+            // instead.
+            EmptyView()
         }
     }
 

@@ -25,6 +25,7 @@
 		36741BFD291E4FDB00A85AAE /* DownloadPreferencePane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36741BFC291E4FDB00A85AAE /* DownloadPreferencePane.swift */; };
 		36741BFF291E50F500A85AAE /* FileError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36741BFE291E50F500A85AAE /* FileError.swift */; };
 		3AB96E92FE0D05B56A34365C /* CleanupOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A39A69E18249AB7D2031B7 /* CleanupOperations.swift */; };
+		3C24CAA398F920118886C5E0 /* SignInSecurityKeyInsertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5223022699CA8D6213912F99 /* SignInSecurityKeyInsertView.swift */; };
 		478E0EB491FFF7376661192A /* CleanupModel+Scanning.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33673EEEE427AD9C512C651 /* CleanupModel+Scanning.swift */; };
 		5039AB44DADC08B206F58ECC /* CleanupModel+Presentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBC8B430E42242B9D5DD9F9 /* CleanupModel+Presentation.swift */; };
 		536CFDD2263C94DE00026CE0 /* SignedInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536CFDD1263C94DE00026CE0 /* SignedInView.swift */; };
@@ -225,6 +226,7 @@
 		3EBC2A1A552465FC75AE0655 /* CleanupFoldersView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CleanupFoldersView.swift; sourceTree = "<group>"; };
 		4CD77CD12442EE56FABCEF5C /* CleanupItemRow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CleanupItemRow.swift; sourceTree = "<group>"; };
 		514610E48D0A3E33DD2EE721 /* CleanupProgress.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CleanupProgress.swift; sourceTree = "<group>"; };
+		5223022699CA8D6213912F99 /* SignInSecurityKeyInsertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInSecurityKeyInsertView.swift; sourceTree = "<group>"; };
 		536CFDD1263C94DE00026CE0 /* SignedInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignedInView.swift; sourceTree = "<group>"; };
 		536CFDD3263C9A8000026CE0 /* XcodesSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodesSheet.swift; sourceTree = "<group>"; };
 		53CBAB2B263DCC9100410495 /* XcodesAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodesAlert.swift; sourceTree = "<group>"; };
@@ -493,6 +495,7 @@
 				CA73510C257BFCEF00EA9CF8 /* NSAttributedString+.swift */,
 				CA5D781D257365D6008EDE9D /* PinCodeTextView.swift */,
 				3328073E2CA5E2C80036F691 /* SignInSecurityKeyPinView.swift */,
+				5223022699CA8D6213912F99 /* SignInSecurityKeyInsertView.swift */,
 				332807402CA5EA820036F691 /* SignInSecurityKeyTouchView.swift */,
 				CAA1CB34255A5AD5003FD669 /* SignInCredentialsView.swift */,
 				E89CBD3F2D6434E10037ED95 /* SignInFederatedView.swift */,
@@ -991,6 +994,7 @@
 				D93F95C12E0C8C1A00238FB5 /* TagView.swift in Sources */,
 				53CBAB2C263DCC9100410495 /* XcodesAlert.swift in Sources */,
 				332807412CA5EA820036F691 /* SignInSecurityKeyTouchView.swift in Sources */,
+				3C24CAA398F920118886C5E0 /* SignInSecurityKeyInsertView.swift in Sources */,
 				CA61A6E0259835580008926E /* Xcode.swift in Sources */,
 				CAE4247F259A666100B8B246 /* MainWindow.swift in Sources */,
 				1596C2923043765600178C86 /* FileOperations.swift in Sources */,

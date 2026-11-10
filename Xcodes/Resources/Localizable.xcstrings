@@ -33278,6 +33278,691 @@
         }
       }
     },
+    "SecondFactorChallengeIncomplete" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أرسلت Apple طلب تحقق غير مكتمل. سجّل الدخول مرة أخرى للحصول على طلب جديد."
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ha enviat una sol·licitud de verificació incompleta. Torna a iniciar la sessió per obtenir-ne una de nova."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple hat eine unvollständige Bestätigungsanfrage gesendet. Melde Dich erneut an, um eine neue zu erhalten."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Η Apple έστειλε ένα ελλιπές αίτημα επαλήθευσης. Συνδεθείτε ξανά για να λάβετε νέο."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple sent an incomplete verification request. Sign in again to get a new one."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ha enviado una solicitud de verificación incompleta. Vuelve a iniciar sesión para obtener una nueva."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple lähetti puutteellisen vahvistuspyynnön. Kirjaudu uudelleen sisään saadaksesi uuden."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple a envoyé une demande de validation incomplète. Reconnectez-vous pour en obtenir une nouvelle."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ने अधूरा सत्यापन अनुरोध भेजा है। नया अनुरोध पाने के लिए फिर से साइन इन करें।"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ha inviato una richiesta di verifica incompleta. Accedi di nuovo per riceverne una nuova."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appleから不完全な確認リクエストが届きました。もう一度サインインして、新しいリクエストを受け取ってください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple이 불완전한 확인 요청을 보냈습니다. 새 요청을 받으려면 다시 로그인하세요."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple heeft een onvolledig verificatieverzoek gestuurd. Log opnieuw in om een nieuw verzoek te krijgen."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple wysłało niekompletne żądanie weryfikacji. Zaloguj się ponownie, aby otrzymać nowe."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A Apple enviou uma solicitação de verificação incompleta. Entre novamente para receber uma nova."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple отправила неполный запрос на проверку. Войдите снова, чтобы получить новый."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple skickade en ofullständig verifieringsbegäran. Logga in igen för att få en ny."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ส่งคำขอการยืนยันที่ไม่สมบูรณ์ ลงชื่อเข้าใช้อีกครั้งเพื่อรับคำขอใหม่"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple eksik bir doğrulama isteği gönderdi. Yeni bir istek almak için yeniden giriş yap."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple надіслала неповний запит на перевірку. Увійдіть знову, щоб отримати новий."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple 发送的验证请求不完整。请重新登录以获取新的请求。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple 傳送的驗證要求不完整。請重新登入以取得新的要求。"
+          }
+        }
+      }
+    },
+    "SecurityCodeCooldown" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تحتاج Apple إلى فترة انتظار قصيرة قبل إرسال رمز آخر أو التحقق منه. حاول مرة أخرى بعد بضع دقائق."
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple necessita una breu espera abans d’enviar o comprovar un altre codi. Torna-ho a provar d’aquí a uns minuts."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple benötigt eine kurze Pause, bevor ein weiterer Code gesendet oder geprüft werden kann. Versuche es in ein paar Minuten erneut."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Η Apple χρειάζεται μια σύντομη αναμονή πριν στείλει ή ελέγξει άλλον κωδικό. Δοκιμάστε ξανά σε λίγα λεπτά."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple needs a short wait before it sends or checks another code. Try again in a few minutes."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple necesita una breve espera antes de enviar o comprobar otro código. Vuelve a intentarlo en unos minutos."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple vaatii lyhyen tauon ennen kuin se lähettää tai tarkistaa uuden koodin. Yritä uudelleen muutaman minuutin kuluttua."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple impose un court délai avant d’envoyer ou de vérifier un autre code. Réessayez dans quelques minutes."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple को दूसरा कोड भेजने या जाँचने से पहले थोड़ा इंतज़ार करना होगा। कुछ मिनट बाद फिर से कोशिश करें।"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple richiede una breve attesa prima di inviare o verificare un altro codice. Riprova tra qualche minuto."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appleが次のコードを送信または確認するまで、しばらく待つ必要があります。数分後にもう一度お試しください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple이 다른 코드를 보내거나 확인하려면 잠시 기다려야 합니다. 몇 분 후에 다시 시도하세요."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple heeft even tijd nodig voordat er een nieuwe code kan worden verstuurd of gecontroleerd. Probeer het over een paar minuten opnieuw."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple wymaga chwili przerwy przed wysłaniem lub sprawdzeniem kolejnego kodu. Spróbuj ponownie za kilka minut."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A Apple precisa de uma breve espera antes de enviar ou verificar outro código. Tente novamente em alguns minutos."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple нужно немного подождать, прежде чем отправить или проверить новый код. Повторите попытку через несколько минут."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple behöver en kort paus innan en ny kod kan skickas eller kontrolleras. Försök igen om några minuter."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ต้องรอสักครู่ก่อนส่งหรือตรวจสอบรหัสอื่น ลองอีกครั้งในอีกไม่กี่นาที"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple’ın başka bir kod göndermeden veya doğrulamadan önce kısa bir süre beklemesi gerekiyor. Birkaç dakika sonra yeniden dene."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple потрібно трохи зачекати, перш ніж надіслати або перевірити інший код. Повторіть спробу за кілька хвилин."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple 需要稍等片刻才能发送或验证下一个验证码。请几分钟后再试。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple 需要稍候片刻才能傳送或驗證下一組驗證碼。請幾分鐘後再試。"
+          }
+        }
+      }
+    },
+    "SecurityCodeLocked" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أقفلت Apple رموز التحقق لمعرّف Apple هذا. حاول مرة أخرى لاحقًا."
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ha bloquejat els codis de verificació d’aquest Apple ID. Torna-ho a provar més tard."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple hat Bestätigungscodes für diese Apple-ID gesperrt. Versuche es später erneut."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Η Apple κλείδωσε τους κωδικούς επαλήθευσης για αυτό το Apple ID. Δοκιμάστε ξανά αργότερα."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple has locked verification codes for this Apple ID. Try again later."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ha bloqueado los códigos de verificación de este ID de Apple. Vuelve a intentarlo más tarde."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple on lukinnut tämän Apple ID:n vahvistuskoodit. Yritä myöhemmin uudelleen."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple a verrouillé les codes de validation de cet identifiant Apple. Réessayez plus tard."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ने इस Apple ID के सत्यापन कोड लॉक कर दिए हैं। बाद में फिर से कोशिश करें।"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ha bloccato i codici di verifica per questo Apple ID. Riprova più tardi."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AppleがこのApple IDの確認コードをロックしました。しばらくしてからもう一度お試しください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple이 이 Apple ID의 확인 코드를 잠갔습니다. 나중에 다시 시도하세요."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple heeft verificatiecodes voor deze Apple ID vergrendeld. Probeer het later opnieuw."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple zablokowało kody weryfikacyjne dla tego Apple ID. Spróbuj ponownie później."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A Apple bloqueou os códigos de verificação deste Apple ID. Tente novamente mais tarde."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple заблокировала коды проверки для этого Apple ID. Повторите попытку позже."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple har låst verifieringskoder för detta Apple-ID. Försök igen senare."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ได้ล็อกรหัสยืนยันสำหรับ Apple ID นี้ ลองอีกครั้งในภายหลัง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple bu Apple ID için doğrulama kodlarını kilitledi. Daha sonra yeniden dene."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple заблокувала коди перевірки для цього Apple ID. Повторіть спробу пізніше."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple 已锁定此 Apple ID 的验证码。请稍后再试。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple 已鎖定此 Apple ID 的驗證碼。請稍後再試。"
+          }
+        }
+      }
+    },
+    "SecurityCodeSendLimit" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لن ترسل Apple المزيد من الرموز الآن. أدخل آخر رمز تلقيته، أو حاول مرة أخرى لاحقًا."
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ara mateix Apple no enviarà més codis. Introdueix l’últim codi que has rebut o torna-ho a provar més tard."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple sendet gerade keine weiteren Codes. Gib den zuletzt erhaltenen Code ein oder versuche es später erneut."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Η Apple δεν θα στείλει άλλους κωδικούς αυτή τη στιγμή. Εισαγάγετε τον τελευταίο κωδικό που λάβατε ή δοκιμάστε ξανά αργότερα."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple won’t send more codes right now. Enter the last code you received, or try again later."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple no enviará más códigos por ahora. Introduce el último código que recibiste o vuelve a intentarlo más tarde."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ei lähetä enempää koodeja juuri nyt. Syötä viimeisin saamasi koodi tai yritä myöhemmin uudelleen."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple n’enverra pas d’autres codes pour le moment. Saisissez le dernier code reçu ou réessayez plus tard."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple अभी और कोड नहीं भेजेगा। आपको मिला आख़िरी कोड दर्ज करें, या बाद में फिर से कोशिश करें।"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Al momento Apple non invierà altri codici. Inserisci l’ultimo codice ricevuto o riprova più tardi."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appleは現在これ以上コードを送信しません。最後に受け取ったコードを入力するか、しばらくしてからもう一度お試しください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "지금은 Apple이 코드를 더 보내지 않습니다. 마지막으로 받은 코드를 입력하거나 나중에 다시 시도하세요."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple verstuurt op dit moment geen nieuwe codes. Voer de laatst ontvangen code in of probeer het later opnieuw."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple nie wyśle teraz kolejnych kodów. Wpisz ostatni otrzymany kod lub spróbuj ponownie później."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A Apple não enviará mais códigos agora. Digite o último código recebido ou tente novamente mais tarde."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сейчас Apple не будет отправлять новые коды. Введите последний полученный код или повторите попытку позже."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple skickar inga fler koder just nu. Ange den senaste koden du fick eller försök igen senare."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ขณะนี้ Apple จะไม่ส่งรหัสเพิ่มเติม ป้อนรหัสล่าสุดที่คุณได้รับ หรือลองอีกครั้งในภายหลัง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple şu anda başka kod göndermeyecek. Aldığın son kodu gir veya daha sonra yeniden dene."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Зараз Apple не надсилатиме нових кодів. Введіть останній отриманий код або повторіть спробу пізніше."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple 目前不会再发送验证码。请输入您收到的最后一个验证码，或稍后再试。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple 目前不會再傳送驗證碼。請輸入你收到的最後一組驗證碼，或稍後再試。"
+          }
+        }
+      }
+    },
+    "SecurityKeyInsertDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أدخل مفتاح الأمان، ثم حاول مرة أخرى."
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connecta la clau de seguretat i torna-ho a provar."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schließe Deinen Sicherheitsschlüssel an und versuche es erneut."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Συνδέστε το κλειδί ασφαλείας σας και δοκιμάστε ξανά."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Insert your security key, then try again."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conecta tu llave de seguridad y vuelve a intentarlo."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Liitä suojausavaimesi ja yritä uudelleen."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Insérez votre clé de sécurité, puis réessayez."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "अपनी सुरक्षा कुंजी लगाएँ, फिर दोबारा कोशिश करें।"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inserisci la chiave di sicurezza, quindi riprova."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "セキュリティキーを挿入してから、もう一度お試しください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "보안 키를 연결한 다음 다시 시도하세요."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sluit je beveiligingssleutel aan en probeer het opnieuw."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Podłącz klucz bezpieczeństwa i spróbuj ponownie."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Insira sua chave de segurança e tente novamente."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Подключите ключ безопасности и повторите попытку."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sätt i din säkerhetsnyckel och försök igen."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เสียบคีย์ความปลอดภัยของคุณ แล้วลองอีกครั้ง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Güvenlik anahtarını tak ve yeniden dene."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Під’єднайте ключ безпеки й повторіть спробу."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "请插入您的安全密钥，然后重试。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "請插入你的安全密鑰，然後再試一次。"
+          }
+        }
+      }
+    },
     "SecurityKeyPinDescription" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -37488,6 +38173,142 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "正在將封存檔移動至垃圾桶"
+          }
+        }
+      }
+    },
+    "TryAgain" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حاول مرة أخرى"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Torna-ho a provar"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erneut versuchen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Δοκιμάστε ξανά"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Try Again"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reintentar"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yritä uudelleen"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Réessayer"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "फिर से कोशिश करें"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Riprova"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "再試行"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "다시 시도"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Probeer opnieuw"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spróbuj ponownie"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tentar Novamente"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Повторить"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Försök igen"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ลองอีกครั้ง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yeniden Dene"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Повторити"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重试"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "再試一次"
           }
         }
       }

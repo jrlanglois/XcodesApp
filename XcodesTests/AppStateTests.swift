@@ -315,6 +315,98 @@ class AppStateTests: XCTestCase {
         XCTAssertEqual(subject.authenticationState, .authenticated(appleSession))
         XCTAssertNil(subject.presentedSheet)
     }
+
+    func test_HandleTwoFactorOption_WithoutCodeDetailsReturnsToSignInWithError() throws {
+        let authOptions = try JSONDecoder().decode(
+            AuthOptionsResponse.self,
+            from: Data(#"{"trustedPhoneNumbers":[{"id":7,"numberWithDialCode":"(•••) •••-••90"}],"noTrustedDevices":false}"#.utf8)
+        )
+        let sessionData = AppleSessionData(serviceKey: "service-key", sessionID: "session-id", scnt: "scnt")
+        subject.authenticationState = .waitingForSecondFactor(.codeSent, authOptions, sessionData)
+
+        subject.handleTwoFactorOption(.codeSent, authOptions: authOptions, serviceKey: "service-key", sessionID: "session-id", scnt: "scnt")
+
+        guard case .signIn = subject.presentedSheet else {
+            return XCTFail("Expected the sign-in form, which shows why the challenge was rejected")
+        }
+        XCTAssertEqual(subject.authError as? SecondFactorChallengeError, .missingSecurityCode)
+        XCTAssertEqual(subject.authenticationState, .unauthenticated)
+    }
+
+    func test_HandleTwoFactorOption_MissingSecurityKeyIsRequestedBeforeAnyPin() throws {
+        let pinChecks = TestLockedBox(0)
+        Current.securityKey = SecurityKey(
+            isAttached: { false },
+            needsPin: {
+                pinChecks.withValue { $0 += 1 }
+                return true
+            }
+        )
+
+        subject.handleTwoFactorOption(.securityKey, authOptions: try Self.securityKeyAuthOptions(), serviceKey: "service-key", sessionID: "session-id", scnt: "scnt")
+
+        guard case let .securityKeyInsert(secondFactorData) = subject.presentedSheet else {
+            return XCTFail("Expected a prompt to insert the security key")
+        }
+        XCTAssertEqual(secondFactorData.option, .securityKey)
+        XCTAssertEqual(pinChecks.read { $0 }, 0)
+    }
+
+    func test_PresentSecurityKeyChallenge_AsksForPinOnceKeyIsInserted() throws {
+        let keyIsAttached = TestLockedBox(false)
+        Current.securityKey = SecurityKey(isAttached: { keyIsAttached.read { $0 } }, needsPin: { true })
+        subject.handleTwoFactorOption(.securityKey, authOptions: try Self.securityKeyAuthOptions(), serviceKey: "service-key", sessionID: "session-id", scnt: "scnt")
+        guard case let .securityKeyInsert(secondFactorData) = subject.presentedSheet else {
+            return XCTFail("Expected a prompt to insert the security key")
+        }
+
+        keyIsAttached.withValue { $0 = true }
+        subject.presentSecurityKeyChallenge(secondFactorData)
+
+        guard case let .twoFactor(pinData) = subject.presentedSheet else {
+            return XCTFail("Expected the security key PIN sheet")
+        }
+        XCTAssertEqual(pinData.option, .securityKey)
+    }
+
+    func test_SecurityCodeSendLimit_StillAcceptsTheLastCode() {
+        let securityCode = AuthOptionsResponse.SecurityCodeInfo(length: 6, tooManyCodesSent: true)
+
+        XCTAssertFalse(securityCode.canRequestCode)
+        XCTAssertTrue(securityCode.canSubmitCode)
+        XCTAssertEqual(securityCode.restrictionDescription, localizeString("SecurityCodeSendLimit"))
+    }
+
+    func test_SecurityCodeCooldown_BlocksSendingAndSubmitting() {
+        let securityCode = AuthOptionsResponse.SecurityCodeInfo(length: 6, securityCodeCooldown: true)
+
+        XCTAssertFalse(securityCode.canRequestCode)
+        XCTAssertFalse(securityCode.canSubmitCode)
+        XCTAssertEqual(securityCode.restrictionDescription, localizeString("SecurityCodeCooldown"))
+    }
+
+    func test_SecurityCodeLock_OutranksCooldown() {
+        let securityCode = AuthOptionsResponse.SecurityCodeInfo(length: 6, tooManyCodesValidated: true, securityCodeCooldown: true)
+
+        XCTAssertFalse(securityCode.canRequestCode)
+        XCTAssertFalse(securityCode.canSubmitCode)
+        XCTAssertEqual(securityCode.restrictionDescription, localizeString("SecurityCodeLocked"))
+    }
+
+    func test_SecurityCodeWithoutRestrictions_AllowsSendingAndSubmitting() {
+        let securityCode = AuthOptionsResponse.SecurityCodeInfo(length: 6)
+
+        XCTAssertTrue(securityCode.canRequestCode)
+        XCTAssertTrue(securityCode.canSubmitCode)
+        XCTAssertNil(securityCode.restrictionDescription)
+    }
+
+    private static func securityKeyAuthOptions() throws -> AuthOptionsResponse {
+        try JSONDecoder().decode(
+            AuthOptionsResponse.self,
+            from: Data(#"{"fsaChallenge":{"challenge":"challenge","keyHandles":["key-handle"],"allowedCredentials":"key-handle"}}"#.utf8)
+        )
+    }
     
     func test_ParseCertificateInfo_Succeeds() throws {
         let sampleRawInfo = """
