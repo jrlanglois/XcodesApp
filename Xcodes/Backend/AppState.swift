@@ -334,7 +334,7 @@ class AppState: ObservableObject {
             throw CancellationError()
         } catch {
             // A transport failure does not mean the session has expired.
-            guard error as? AuthenticationError == .invalidSession || Self.isUnauthorizedInstallError(error) else {
+            guard Self.isExpiredSessionError(error) else {
                 throw error
             }
             guard
@@ -545,6 +545,15 @@ class AppState: ObservableObject {
         error = nil
         presentedSheet = nil
         presentedAlert = .postInstallFailed(xcode: xcode)
+    }
+
+    /// Asks the user to sign in again after Apple rejected the session. Clears `error`, whose generic
+    /// alert would compete with `alert`.
+    func presentSignInRequired(_ alert: XcodesAlert) {
+        // Otherwise Login reopens the account sheet for the rejected session.
+        authenticationState = .unauthenticated
+        error = nil
+        presentedAlert = alert
     }
 
     // MARK: - Helper
@@ -1103,20 +1112,22 @@ class AppState: ObservableObject {
     }
 
     private func handleInstallError(_ error: Error, id: XcodeID) {
-        // Prevent setting the app state error if it is an invalid session, we will present the sign in view instead
-        if Self.isUnauthorizedInstallError(error) {
-            self.error = error
-            self.presentedAlert = .unauthenticated
-
+        if Self.isExpiredSessionError(error) {
+            presentSignInRequired(.unauthenticated)
         } else if let failure = error as? HelperFileOperationError {
             presentHelperRecovery(title: localizeString("Alert.Install.Error.Title"), error: failure.underlyingError, command: failure.command)
-        } else if error as? AuthenticationError != .invalidSession {
+        } else {
             self.error = error
             self.presentedAlert = .generic(title: localizeString("Alert.Install.Error.Title"), message: error.legibleLocalizedDescription)
         }
         if let index = self.allXcodes.firstIndex(where: { $0.id == id }) {
             self.allXcodes[index].installState = .notInstalled
         }
+    }
+
+    /// Whether Apple rejected the session, which signing in again fixes.
+    static func isExpiredSessionError(_ error: Error) -> Bool {
+        error as? AuthenticationError == .invalidSession || isUnauthorizedInstallError(error)
     }
 
     static func isUnauthorizedInstallError(_ error: Error) -> Bool {

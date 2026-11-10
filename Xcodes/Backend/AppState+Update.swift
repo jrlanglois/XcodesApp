@@ -76,12 +76,11 @@ extension AppState {
                 // A restarted refresh can surface its cancellation as a URLError instead
                 guard !Task.isCancelled else { return }
 
-                if self.dataSource == .apple, Self.isUnauthorizedInstallError(error) || error as? AuthenticationError == .invalidSession {
+                if self.dataSource == .apple, Self.isExpiredSessionError(error) {
                     // The Apple data source needs a developer session; ask the user to sign in rather than
                     // showing a raw 401.
-                    self.presentedAlert = .unauthenticatedDataSource
-                } else if error as? AuthenticationError != .invalidSession {
-                    // Prevent setting the app state error if it is an invalid session, we will present the sign in view instead
+                    self.presentSignInRequired(.unauthenticatedDataSource)
+                } else {
                     self.error = error
                     self.presentedAlert = .generic(title: localizeString("Alert.Update.Error.Title"), message: error.legibleLocalizedDescription)
                 }

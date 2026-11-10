@@ -2,6 +2,7 @@ import Path
 import CryptoKit
 import Version
 import XcodesKit
+import XcodesLoginKit
 @testable import Xcodes
 import XCTest
 import CommonCrypto
@@ -359,6 +360,23 @@ class AppStateUpdateTests: XCTestCase {
 
         await cancelUpdateTask(releasing: continuations)
         await firstTask.value
+    }
+
+    func test_Update_ExpiredAppleSessionAsksToSignIn() async throws {
+        Current.defaults.string = { key in key == "dataSource" ? DataSource.apple.rawValue : nil }
+        Current.network.validateSessionAsync = { throw AuthenticationError.invalidSession }
+        let appleSession = try JSONDecoder().decode(AppleSession.self, from: Data(#"{"user":{"fullName":"Jane Developer"}}"#.utf8))
+        subject.authenticationState = .authenticated(appleSession)
+
+        subject.update()
+        let task = try XCTUnwrap(subject.updateTask)
+        await task.value
+
+        guard case .unauthenticatedDataSource = subject.presentedAlert else {
+            return XCTFail("Expected the sign-in alert, got \(String(describing: subject.presentedAlert))")
+        }
+        XCTAssertEqual(subject.authenticationState, .unauthenticated)
+        XCTAssertNil(subject.error)
     }
 
     private func blockXcodeSelect() -> AppStateUpdateTestLockedBox<[CheckedContinuation<ProcessOutput, Error>]> {

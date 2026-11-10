@@ -207,6 +207,45 @@ class AppStateTests: XCTestCase {
         XCTAssertFalse(AppState.isUnauthorizedInstallError(error))
     }
 
+    func test_Install_ExpiredSessionAsksToSignIn() async throws {
+        let availableXcode = AvailableXcode(version: Version("0.0.0")!, url: URL(string: "https://apple.com/xcode.xip")!, filename: "mock.xip", releaseDate: nil)
+        subject.availableXcodes = [availableXcode]
+        subject.authenticationState = .authenticated(try Self.appleSession())
+        Current.network.validateSessionAsync = { throw AuthenticationError.invalidSession }
+
+        subject.install(id: availableXcode.xcodeID)
+        let task = try XCTUnwrap(subject.installationTasks[availableXcode.xcodeID])
+        await task.value
+
+        guard case .unauthenticated = subject.presentedAlert else {
+            return XCTFail("Expected the sign-in alert, got \(String(describing: subject.presentedAlert))")
+        }
+        XCTAssertEqual(subject.authenticationState, .unauthenticated)
+        XCTAssertNil(subject.error)
+        XCTAssertEqual(subject.allXcodes.first { $0.id == availableXcode.xcodeID }?.installState, .notInstalled)
+    }
+
+    func test_Install_UnauthorizedAsksToSignInWithoutGenericError() async throws {
+        let availableXcode = AvailableXcode(version: Version("0.0.0")!, url: URL(string: "https://apple.com/xcode.xip")!, filename: "mock.xip", releaseDate: nil)
+        subject.availableXcodes = [availableXcode]
+        subject.authenticationState = .authenticated(try Self.appleSession())
+        Current.network.validateSessionAsync = { throw NetworkError.non200StatusCode(statusCode: 401, data: Data()) }
+
+        subject.install(id: availableXcode.xcodeID)
+        let task = try XCTUnwrap(subject.installationTasks[availableXcode.xcodeID])
+        await task.value
+
+        guard case .unauthenticated = subject.presentedAlert else {
+            return XCTFail("Expected the sign-in alert, got \(String(describing: subject.presentedAlert))")
+        }
+        XCTAssertEqual(subject.authenticationState, .unauthenticated)
+        XCTAssertNil(subject.error)
+    }
+
+    private static func appleSession() throws -> AppleSession {
+        try JSONDecoder().decode(AppleSession.self, from: Data(#"{"user":{"fullName":"Jane Developer"}}"#.utf8))
+    }
+
     func test_PinCodeTextView_MarksDigitFieldsAsOneTimeCode() {
         let pinCodeTextView = PinCodeTextView(numberOfDigits: 6, itemSpacing: 10)
 
