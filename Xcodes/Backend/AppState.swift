@@ -97,7 +97,7 @@ class AppState: ObservableObject {
     @Published var presentedSheet: XcodesSheet? = nil
     @Published var isProcessingAuthRequest = false
     private var authenticationRequestID: UUID?
-    private var authenticationTask: Task<Void, Never>?
+    internal var authenticationTask: Task<Void, Never>?
     private var authenticationTaskID: UUID?
     @Published var xcodeBeingConfirmedForUninstallation: Xcode?
     @Published var presentedAlert: XcodesAlert?
@@ -445,8 +445,33 @@ class AppState: ObservableObject {
         }
     }
 
-    func cancelSecurityKeyAssertationRequest() {
-        self.client.cancelSecurityKeyAssertationRequest()
+    func cancelAuthenticationFlow() {
+        authenticationTask?.cancel()
+        authenticationTask = nil
+        authenticationTaskID = nil
+        authenticationRequestID = nil
+        isProcessingAuthRequest = false
+        authError = nil
+
+        switch presentedSheet {
+        case .securityKeyTouchToConfirm:
+            // Only this prompt can have a key assertion pending; LibFido2Swift's cancel reaches a
+            // freed device once an assertion has finished.
+            client.cancelSecurityKeyAssertationRequest()
+            presentedSheet = nil
+        case .signIn, .twoFactor:
+            presentedSheet = nil
+        case .helperRecovery, nil:
+            break
+        }
+
+        switch authenticationState {
+        case .waitingForFederatedAuthentication, .waitingForSecondFactor:
+            // An install waiting for this sign-in to finish stops on .unauthenticated.
+            authenticationState = .unauthenticated
+        case .unauthenticated, .authenticated, .notAppleDeveloper:
+            break
+        }
     }
 
     private func handleAuthenticationFlowFailure(_ error: Error) {
@@ -470,6 +495,7 @@ class AppState: ObservableObject {
     private func performAuthenticationRequest(
         _ operation: () async throws -> AuthenticationState
     ) async throws -> AuthenticationState {
+        try Task.checkCancellation()
         let requestID = UUID()
         authenticationRequestID = requestID
         isProcessingAuthRequest = true
@@ -530,6 +556,7 @@ class AppState: ObservableObject {
     }
 
     func signOut() {
+        cancelAuthenticationFlow()
         clearLoginCredentials()
         Current.network.signout()
         authenticationState = .unauthenticated

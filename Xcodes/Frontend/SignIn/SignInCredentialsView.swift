@@ -43,10 +43,7 @@ struct SignInCredentialsView: View {
             
             HStack {
                 Spacer()
-                Button("Cancel") {
-                    appState.authError = nil
-                    appState.presentedSheet = nil
-                }
+                Button("Cancel", action: appState.cancelAuthenticationFlow)
                     .keyboardShortcut(.cancelAction)
                 ProgressButton(
                     isInProgress: appState.isProcessingAuthRequest,

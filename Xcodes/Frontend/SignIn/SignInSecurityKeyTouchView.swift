@@ -11,7 +11,6 @@ import XcodesLoginKit
 
 struct SignInSecurityKeyTouchView: View {
     @EnvironmentObject var appState: AppState
-    @Binding var isPresented: Bool
     
     var body: some View {
         VStack(alignment: .center) {
@@ -25,7 +24,8 @@ struct SignInSecurityKeyTouchView: View {
                 Spacer()
             }
             HStack {
-                Button("Cancel", action: self.cancel)
+                // Also cancels the key assertion this prompt is waiting on.
+                Button("Cancel", action: appState.cancelAuthenticationFlow)
                     .keyboardShortcut(.cancelAction)
                 Spacer()
                 
@@ -41,14 +41,9 @@ struct SignInSecurityKeyTouchView: View {
         .padding()
         .emittingError($appState.authError, recoveryHandler: { _ in })
     }
-    
-    func cancel() {
-        appState.cancelSecurityKeyAssertationRequest()
-        isPresented = false
-    }
 }
 
 #Preview { @MainActor in
-    SignInSecurityKeyTouchView(isPresented: .constant(true))
+    SignInSecurityKeyTouchView()
     .environmentObject(AppState())
 }

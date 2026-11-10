@@ -3,7 +3,6 @@ import XcodesLoginKit
 
 struct SignIn2FAView: View {
     @EnvironmentObject var appState: AppState
-    @Binding var isPresented: Bool
     @State private var code: String = ""
     let authOptions: AuthOptionsResponse
     let sessionData: AppleSessionData
@@ -23,7 +22,7 @@ struct SignIn2FAView: View {
             .padding()
             
             HStack {
-                Button("Cancel", action: { isPresented = false })
+                Button("Cancel", action: appState.cancelAuthenticationFlow)
                     .keyboardShortcut(.cancelAction)
                 Button("SendSMS", action: { appState.choosePhoneNumberForSMS(authOptions: authOptions, sessionData: sessionData) })
                 Spacer()
@@ -45,7 +44,6 @@ struct SignIn2FAView_Previews: PreviewProvider {
     @MainActor
     static var previews: some View {
         SignIn2FAView(
-            isPresented: .constant(true),
             authOptions: AuthOptionsResponse(
                 trustedPhoneNumbers: nil,
                 trustedDevices: nil,

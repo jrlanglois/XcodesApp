@@ -260,6 +260,61 @@ class AppStateTests: XCTestCase {
         }
         XCTAssertEqual(secondFactorData.option, .smsSent(trustedPhoneNumber))
     }
+
+    func test_CancelAuthenticationFlow_DiscardsLateResponse() async throws {
+        let trustedPhoneNumber = AuthOptionsResponse.TrustedPhoneNumber(id: 7, numberWithDialCode: "(•••) •••-••90")
+        let authOptions = AuthOptionsResponse(
+            trustedPhoneNumbers: [trustedPhoneNumber],
+            trustedDevices: nil,
+            securityCode: .init(length: 6)
+        )
+        let sessionData = AppleSessionData(serviceKey: "service-key", sessionID: "session-id", scnt: "scnt")
+        let didReceiveRequest = TestLockedBox(false)
+        let releaseResponse = DispatchSemaphore(value: 0)
+        // A handler left waiting would stall every later request made through MockURLProtocol.
+        defer { releaseResponse.signal() }
+        Current.network = Network(session: MockURLProtocol.session { request in
+            didReceiveRequest.withValue { $0 = true }
+            releaseResponse.wait()
+            return (Data(), HTTPURLResponse(url: request.url!, statusCode: 204, httpVersion: nil, headerFields: nil)!)
+        })
+        subject.authenticationState = .waitingForSecondFactor(.smsPendingChoice, authOptions, sessionData)
+        subject.presentedSheet = .twoFactor(.init(option: .smsPendingChoice, authOptions: authOptions, sessionData: sessionData))
+
+        subject.requestSMS(to: trustedPhoneNumber, authOptions: authOptions, sessionData: sessionData)
+        let authenticationTask = try XCTUnwrap(subject.authenticationTask)
+        for _ in 0..<100 where !didReceiveRequest.read({ $0 }) {
+            try await Task.sleep(nanoseconds: 10_000_000)
+        }
+        XCTAssertTrue(subject.isProcessingAuthRequest)
+
+        subject.cancelAuthenticationFlow()
+
+        XCTAssertFalse(subject.isProcessingAuthRequest)
+        XCTAssertNil(subject.presentedSheet)
+        XCTAssertEqual(subject.authenticationState, .unauthenticated)
+
+        releaseResponse.signal()
+        await authenticationTask.value
+
+        XCTAssertEqual(subject.authenticationState, .unauthenticated)
+        XCTAssertNil(subject.presentedSheet)
+        XCTAssertNil(subject.authError)
+    }
+
+    func test_CancelAuthenticationFlow_KeepsAuthenticatedSession() throws {
+        let appleSession = try JSONDecoder().decode(
+            AppleSession.self,
+            from: Data(#"{"user":{"fullName":"Jane Developer"}}"#.utf8)
+        )
+        subject.authenticationState = .authenticated(appleSession)
+        subject.presentedSheet = .signIn
+
+        subject.cancelAuthenticationFlow()
+
+        XCTAssertEqual(subject.authenticationState, .authenticated(appleSession))
+        XCTAssertNil(subject.presentedSheet)
+    }
     
     func test_ParseCertificateInfo_Succeeds() throws {
         let sampleRawInfo = """
