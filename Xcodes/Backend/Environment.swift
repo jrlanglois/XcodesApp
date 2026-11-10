@@ -174,6 +174,7 @@ public struct Network: Sendable {
 
     public init(
         session: URLSession? = nil,
+        serviceKeyProvider: AppleServiceKeyProvider? = nil,
         loadData: (@Sendable (URLRequest) async throws -> (Data, URLResponse))? = nil,
         downloadTaskAsync: (@Sendable (URL, URL, Data?) -> (Progress, Task<(saveLocation: URL, response: URLResponse), Error>))? = nil,
         validateSessionAsync: (@Sendable () async throws -> AuthenticationState)? = nil,
@@ -181,9 +182,9 @@ public struct Network: Sendable {
     ) {
         let loginClient: XcodesLoginKit.Client
         if let session {
-            loginClient = XcodesLoginKit.Client(urlSession: session)
+            loginClient = XcodesLoginKit.Client(urlSession: session, serviceKeyProvider: serviceKeyProvider)
         } else {
-            loginClient = XcodesLoginKit.Client()
+            loginClient = XcodesLoginKit.Client(serviceKeyProvider: serviceKeyProvider)
         }
         self.loginClient = loginClient
         self.loadData = loadData ?? { request in

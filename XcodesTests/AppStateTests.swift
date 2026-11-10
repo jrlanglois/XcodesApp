@@ -712,6 +712,7 @@ class AppStateTests: XCTestCase {
         let removedCredentials = TestLockedBox<[String]>([])
         Current.keychain.remove = { key in removedCredentials.withValue { $0.append(key) } }
         Current.defaults.removeObject = { key in removedCredentials.withValue { $0.append(key) } }
+        let writes = recordCredentialWrites()
         Current.network.session = MockURLProtocol.session { _ in throw URLError(.timedOut) }
 
         do {
@@ -722,6 +723,109 @@ class AppStateTests: XCTestCase {
         }
 
         XCTAssertTrue(removedCredentials.read { $0.isEmpty })
+        XCTAssertEqual(writes.keychain.read { $0 }, [])
+        XCTAssertEqual(writes.defaults.read { $0 }, [])
+    }
+
+    func test_SignIn_RejectedPasswordSavesNoCredentials() async throws {
+        let writes = recordCredentialWrites()
+        Current.network = Network(session: MockURLProtocol.session(handler: Self.passwordSignIn(completeStatusCode: 401)), serviceKeyProvider: .fixed("service-key"))
+
+        do {
+            _ = try await subject.signInAsync(username: "jane@example.com", password: "wrong-password")
+            XCTFail("Expected Apple to reject the password")
+        } catch {
+            XCTAssertEqual(error as? AuthenticationError, .invalidUsernameOrPassword(username: "jane@example.com"))
+        }
+
+        XCTAssertEqual(writes.keychain.read { $0 }, [])
+        XCTAssertEqual(writes.defaults.read { $0 }, [])
+    }
+
+    func test_SignIn_SavesCredentialsOnceAfterSecondFactor() async throws {
+        let writes = recordCredentialWrites()
+        Current.network = Network(session: MockURLProtocol.session(handler: Self.passwordSignIn(completeStatusCode: 409)), serviceKeyProvider: .fixed("service-key"))
+
+        let state = try await subject.signInAsync(username: "jane@example.com", password: "secret")
+        guard case let .waitingForSecondFactor(.codeSent, _, sessionData) = state else {
+            return XCTFail("Expected Apple to ask for a verification code, got \(state)")
+        }
+        XCTAssertEqual(writes.keychain.read { $0 }, [])
+        XCTAssertEqual(writes.defaults.read { $0 }, [])
+
+        subject.submitSecurityCode(.device(code: "123456"), sessionData: sessionData)
+        let authenticationTask = try XCTUnwrap(subject.authenticationTask)
+        await authenticationTask.value
+
+        guard case .authenticated = subject.authenticationState else {
+            return XCTFail("Expected the verification code to sign in, got \(subject.authenticationState)")
+        }
+        XCTAssertEqual(writes.keychain.read { $0 }, [["jane@example.com", "secret"]])
+        XCTAssertEqual(writes.defaults.read { $0 }, [["username", "jane@example.com"]])
+    }
+
+    func test_SignIn_FailedAttemptAfterSignOutLeavesNoAccountSaved() async throws {
+        let passwords = TestLockedBox<[String: String]>(["jane@example.com": "jane-password"])
+        let defaults = TestLockedBox<[String: String]>(["username": "jane@example.com"])
+        Current.keychain.getString = { key in passwords.read { $0[key] } }
+        Current.keychain.set = { password, account in passwords.withValue { $0[account] = password } }
+        Current.keychain.remove = { account in passwords.withValue { $0[account] = nil } }
+        Current.defaults.string = { key in defaults.read { $0[key] } }
+        Current.defaults.set = { value, key in
+            let value = value as? String
+            defaults.withValue { $0[key] = value }
+        }
+        Current.defaults.removeObject = { key in defaults.withValue { $0[key] = nil } }
+        Current.network = Network(session: MockURLProtocol.session(handler: Self.passwordSignIn(completeStatusCode: 401)), serviceKeyProvider: .fixed("service-key"))
+
+        subject.signOut()
+        _ = try? await subject.signInAsync(username: "john@example.com", password: "wrong-password")
+
+        XCTAssertNil(subject.savedUsername)
+        XCTAssertEqual(passwords.read { $0 }, [:])
+        XCTAssertEqual(defaults.read { $0 }, [:])
+    }
+
+    /// Records each keychain write as `[account, password]` and each defaults write as `[key, value]`.
+    private func recordCredentialWrites() -> (keychain: TestLockedBox<[[String]]>, defaults: TestLockedBox<[[String]]>) {
+        let keychain = TestLockedBox<[[String]]>([])
+        let defaults = TestLockedBox<[[String]]>([])
+        Current.keychain.set = { password, account in keychain.withValue { $0.append([account, password]) } }
+        Current.defaults.set = { value, key in
+            let value = value.map { "\($0)" } ?? "nil"
+            defaults.withValue { $0.append([key, value]) }
+        }
+        return (keychain, defaults)
+    }
+
+    /// Answers Apple's password sign-in. Signing in completes with `completeStatusCode`: 401 rejects the
+    /// password, and 409 asks for a verification code, which any later submission satisfies.
+    private static func passwordSignIn(completeStatusCode: Int) -> MockURLProtocol.Handler {
+        let serverPublicKey = Data(repeating: 2, count: 256).base64EncodedString()
+        return { request in
+            let url = request.url!
+            func reply(_ statusCode: Int, _ body: String = "{}", headers: [String: String] = [:]) -> (Data, HTTPURLResponse) {
+                (Data(body.utf8), HTTPURLResponse(url: url, statusCode: statusCode, httpVersion: nil, headerFields: headers)!)
+            }
+            switch url.path {
+            case "/appleauth/auth/federate":
+                return reply(200, #"{"federated":false}"#)
+            case "/appleauth/auth/signin":
+                return reply(200, headers: ["X-Apple-HC-Bits": "1", "X-Apple-HC-Challenge": "challenge"])
+            case "/appleauth/auth/signin/init":
+                return reply(200, #"{"iteration":1,"salt":"c2FsdA==","b":"\#(serverPublicKey)","c":"c","protocol":"s2k"}"#)
+            case "/appleauth/auth/signin/complete":
+                return reply(completeStatusCode, headers: ["X-Apple-ID-Session-Id": "session-id", "scnt": "scnt"])
+            case "/appleauth/auth":
+                return reply(200, #"{"trustedPhoneNumbers":[{"id":1,"numberWithDialCode":"(•••) •••-••90"}],"securityCode":{"length":6,"tooManyCodesSent":false,"tooManyCodesValidated":false,"securityCodeLocked":false,"securityCodeCooldown":false}}"#)
+            case "/appleauth/auth/verify/trusteddevice/securitycode", "/appleauth/auth/2sv/trust":
+                return reply(204, "")
+            case "/olympus/v1/session":
+                return reply(200, #"{"user":{"fullName":"Jane Developer"}}"#)
+            default:
+                throw URLError(.unsupportedURL)
+            }
+        }
     }
 
     func test_RestoreAuthenticationStateIfNeeded_SkipsValidationWithoutSavedUsername() async throws {

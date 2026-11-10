@@ -99,6 +99,9 @@ class AppState: ObservableObject {
     private var authenticationRequestID: UUID?
     internal var authenticationTask: Task<Void, Never>?
     private var authenticationTaskID: UUID?
+    /// Saved by `handleAuthenticationFlowSuccess()` once the sign-in they were entered for reaches
+    /// `.authenticated`, and dropped by `cancelAuthenticationFlow()`.
+    private var pendingCredentials: (username: String, password: String?)?
     @Published var xcodeBeingConfirmedForUninstallation: Xcode?
     @Published var presentedAlert: XcodesAlert?
     @Published var presentedPreferenceAlert: XcodesPreferencesAlert?
@@ -361,11 +364,7 @@ class AppState: ObservableObject {
     }
 
     func signInAsync(username: String, password: String?) async throws -> AuthenticationState {
-        if let password, !password.isEmpty {
-            try? Current.keychain.set(password, key: username)
-        }
-        Current.defaults.set(username, forKey: "username")
-
+        pendingCredentials = (username, password)
         return try await performAuthenticationRequest {
             try await client.authenticationState(accountName: username, password: password)
         }
@@ -452,6 +451,7 @@ class AppState: ObservableObject {
         authenticationRequestID = nil
         isProcessingAuthRequest = false
         authError = nil
+        pendingCredentials = nil
 
         switch presentedSheet {
         case .securityKeyTouchToConfirm:
@@ -483,7 +483,10 @@ class AppState: ObservableObject {
 
     private func handleAuthenticationFlowSuccess() {
         switch self.authenticationState {
-        case .authenticated, .unauthenticated, .notAppleDeveloper:
+        case .authenticated:
+            savePendingCredentials()
+            self.presentedSheet = nil
+        case .unauthenticated, .notAppleDeveloper:
             self.presentedSheet = nil
         case .waitingForFederatedAuthentication:
             break
@@ -1161,6 +1164,15 @@ class AppState: ObservableObject {
             return false
         }
         return true
+    }
+
+    private func savePendingCredentials() {
+        guard let pendingCredentials else { return }
+        self.pendingCredentials = nil
+        if let password = pendingCredentials.password, !password.isEmpty {
+            try? Current.keychain.set(password, key: pendingCredentials.username)
+        }
+        Current.defaults.set(pendingCredentials.username, forKey: "username")
     }
 
     /// removes saved username and credentials stored in keychain
